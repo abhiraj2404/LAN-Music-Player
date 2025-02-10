@@ -1,0 +1,16 @@
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+#progressBar {
+    flex-grow: 1;
+    height: 20px;
+}
+
+#currentTime, #duration {
+    font-family: monospace;
+    min-width: 45px;
+} 
