@@ -1,31 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple LAN Music Player</title>
-    <style>
-        .controls {
-            margin: 20px;
-        }
-        button {
-            margin: 5px;
-            padding: 10px;
-        }
-        #status {
-            margin: 10px;
-            color: green;
-        }
-    </style>
+    <title>LAN Music Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="controls" id="controls">
-        <audio id="audioPlayer" src="/song.mp3"></audio>
-        <button id="playBtn">Play</button>
-        <button id="pauseBtn">Pause</button>
-        <div id="status">Not Connected</div>
-        <div class="progress-container">
-            <span id="currentTime">0:00</span>
-            <input type="range" id="progressBar" min="0" max="100" value="0" step="0.1">
-            <span id="duration">0:00</span>
+<body class="bg-gray-100 min-h-screen py-8">
+    <div class="max-w-3xl mx-auto px-4">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">LAN Music Player</h1>
+            
+            <div class="space-y-6">
+                <div class="space-y-3">
+                    <h2 id="currentSongTitle" class="text-xl font-medium text-gray-700">No song playing</h2>
+                    <audio id="audioPlayer" class="hidden"></audio>
+                    
+                    <div class="flex items-center gap-4">
+                        <button id="playBtn" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                            Play
+                        </button>
+                        <button id="pauseBtn" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                            Pause
+                        </button>
+                        <div id="status" class="text-green-600 font-medium">Not Connected</div>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <span id="currentTime" class="font-mono text-gray-600 min-w-[45px]">0:00</span>
+                        <input type="range" id="progressBar" 
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                            min="0" max="100" value="0" step="0.1">
+                        <span id="duration" class="font-mono text-gray-600 min-w-[45px]">0:00</span>
+                    </div>
+                </div>
+
+                <div class="border-t pt-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Playlist</h3>
+                        <input type="file" id="fileInput" accept="audio/*" multiple class="hidden">
+                        <label for="fileInput" 
+                            class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors cursor-pointer">
+                            Add Songs
+                        </label>
+                    </div>
+                    <ul id="playlist" class="divide-y divide-gray-200 max-h-[300px] overflow-y-auto"></ul>
+                </div>
+            </div>
         </div>
     </div>
     <script src="client.js"></script>
