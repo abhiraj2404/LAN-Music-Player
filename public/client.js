@@ -43,7 +43,6 @@ function connect() {
                 currentPlaylistIndex = data.currentIndex;
                 updatePlaylistUI();
                 
-                // Load the current song if we have songs and no audio is playing
                 if (songs.length > 0) {
                     const currentSong = songs[currentPlaylistIndex];
                     const newSrc = `/songs/${currentSong.filename}`;
@@ -51,10 +50,10 @@ function connect() {
                     if (audioPlayer.src !== newSrc) {
                         audioPlayer.src = newSrc;
                         currentSongTitle.textContent = currentSong.title;
+                        audioPlayer.currentTime = 0;
                     }
                     
                     if (data.isPlaying) {
-                        audioPlayer.currentTime = data.currentTime;
                         audioPlayer.play();
                     }
                 } else {
@@ -205,9 +204,13 @@ function loadAndPlaySong(filename, title) {
     if (audioPlayer.src !== newSrc) {
         audioPlayer.src = newSrc;
         currentSongTitle.textContent = title;
+        audioPlayer.currentTime = 0;
         audioPlayer.play();
         if (isServer) {
-            ws.send(JSON.stringify({ type: 'play' }));
+            ws.send(JSON.stringify({ 
+                type: 'play',
+                time: 0  // Send the new time
+            }));
         }
     }
 }

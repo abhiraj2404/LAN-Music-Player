@@ -1,0 +1,10 @@
+{
+    "ignore": [
+        "playlist.json",
+        "songs/*",
+        "public/*"
+    ],
+    "watch": [
+        "server.js"
+    ]
+} 
