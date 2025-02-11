@@ -125,6 +125,26 @@ wss.on('connection', (ws) => {
                     currentTime
                 });
                 break;
+            case 'deleteSong':
+                const songToDelete = playlist[data.index];
+                if (songToDelete) {
+                    const filepath = path.join(songsDir, songToDelete.filename);
+                    fs.unlink(filepath, (err) => {
+                        if (err) {
+                            console.error('Failed to delete file:', err);
+                        }
+                    });
+                    playlist.splice(data.index, 1);
+                    savePlaylistState();
+                    broadcast({
+                        type: 'syncPlaylist',
+                        songs: playlist,
+                        currentIndex,
+                        isPlaying,
+                        currentTime
+                    });
+                }
+                break;
         }
     });
 

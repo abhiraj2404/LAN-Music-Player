@@ -193,6 +193,19 @@ function updatePlaylistUI() {
                     index: index
                 }));
             };
+
+            // Add delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'text-red-500 ml-auto';
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.onclick = (e) => {
+                e.stopPropagation(); // Prevent triggering the song change
+                ws.send(JSON.stringify({
+                    type: 'deleteSong',
+                    index: index
+                }));
+            };
+            li.appendChild(deleteBtn);
         }
         
         playlist.appendChild(li);
